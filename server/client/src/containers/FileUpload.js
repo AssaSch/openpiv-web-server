@@ -1,6 +1,6 @@
 import React, {Component} from 'react';  
 // import { Link } from 'react-router-dom';
-import axios from 'axios';
+// import axios from 'axios';
 
 /* Import Components */
 
@@ -23,8 +23,8 @@ class fileUpload extends Component {
     data.append('file', this.uploadInput.files[0]);
     data.append('filename', this.fileName.value);
     console.log('testing!!');
-    const response = await axios.post('/api/files/upload', data);
-    this.setState({ imageURL: `${response.file}` });
+    // const response = await axios.post('/api/files/upload', data);
+    // this.setState({ imageURL: `${response.file}` });
     
   }
 

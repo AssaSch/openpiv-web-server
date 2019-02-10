@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
-// import Landing from '../containers/Landing';
 import Results from '../containers/Results';
-import FormContainer from '../containers/FormContainer';
+import Landing from '../containers/Landing';
 
 import './App.css';
 
@@ -19,9 +18,8 @@ class App extends Component {
         <BrowserRouter>
           <div>
             <h3 > Openpiv web platform </h3>
-            <Route exact path="/" component={FormContainer} />
+            <Route exact path="/" component={Landing} />
             <Route exact path="/results" component={Results} />
-            {/* <FormContainer /> */}
           </div>
         </BrowserRouter>
       </div>
