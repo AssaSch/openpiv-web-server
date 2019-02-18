@@ -1,7 +1,7 @@
 import React, {Component} from 'react';  
 
-import FileUpload from './FileUpload';
-import Start from '../components/Start';
+// import Start from '../components/Start';
+import FileUpload from '../components/FileUpload';
 
 
 class Landing extends Component {  
@@ -10,7 +10,7 @@ class Landing extends Component {
         return (
             <div>
                 <FileUpload/>
-                <Start/>
+                {/* <Start/> */}
             </div>
         );
     }

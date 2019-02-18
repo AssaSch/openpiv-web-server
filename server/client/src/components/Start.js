@@ -1,25 +1,25 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import axios from 'axios';
 
 class Start extends Component {
-    constructor(props) {
-        super(props);
+    // constructor(props) {
+    //     super(props);
     
-        this.handleClick = this.handleClick.bind(this);
-    }
+        // this.handleClick = this.handleClick.bind(this);
+    // }
 
-    async handleClick() {
+    handleClick = async () => {
         const response = await axios.post('/api/openpiv', "test data");
         console.log(response);
     }
 
     render() {
         return (
-            <React.Fragment>
+            <Fragment>
                 <button onClick={this.handleClick}> 
                     Start
                 </button>
-            </React.Fragment>
+            </Fragment>
         )
     }
 }

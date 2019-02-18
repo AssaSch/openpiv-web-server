@@ -10,8 +10,9 @@ class Openpiv(Resource):
     
     def post(self):
         req_body = request.get_json()
-        data = openpiv_handler.two_images()
-        #args = reqparse.RequestParser()
+        # print(req_body['image_1']['data'])
+        data = openpiv_handler.two_images(req_body['image_1']['data'],
+                req_body['image_2']['data'])
         return 'python success ' + data, 200
 
     

@@ -1,19 +1,73 @@
 const express = require('express');
 const router = express.Router();
+const path = require("path");
+const multer = require("multer");
+const request = require('request-promise');
 
-router.post('/upload', async (req, res) => {
-  console.log('upload backend');
-  
-  // let imageFile = req.files.file;
-  res.status(200).send();
-  
-  // imageFile.mv(`${__dirname}/public/${req.body.filename}.jpg`, function(err) {
-  //   if (err) {
-  //     return res.status(500).send(err);
-  //   }
 
-  //   res.json({file: `public/${req.body.filename}.jpg`});
-  // });
+// Set The Storage Engine
+const storage = multer.diskStorage({
+  destination: './public/uploads/',
+  filename: function(req, file, cb){
+    cb(null,file.fieldname + '-' + Date.now() + path.extname(file.originalname));
+  }
 });
+
+// Init Upload
+const upload = multer({
+  storage: storage,
+  limits:{fileSize: 1000000},
+  fileFilter: function(req, file, cb){
+    checkFileType(file, cb);
+  }
+}).single('myImage');
+
+// Check File Type
+function checkFileType(file, cb){
+  // Allowed ext
+  const filetypes = /jpeg|jpg|png|gif/;
+  // Check ext
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+  // Check mime
+  const mimetype = filetypes.test(file.mimetype);
+
+  if(mimetype && extname){
+    return cb(null,true);
+  } else {
+    cb('Error: Images Only!');
+  }
+}
+
+router.post('/', async (req, res) => {
+  console.log(req.files.image_1.data);
+  upload(req, res, async (err) => {
+    if(err){
+      res.status(500).send({msg: err});
+    } else {
+      if(req.files == undefined){
+        res.send({
+          msg: 'Error: No File Selected!'
+        });
+      } else {
+      
+        const options = {
+          method: 'POST',
+          uri: 'http://localhost:4000/openpiv',
+          body: {
+              image_1: req.files.image_1.data,
+              image_2: req.files.image_2.data
+          },
+          
+          json: true // Automatically stringifies the body to JSON
+      };
+  
+      const response = await request(options);
+      console.log(JSON.stringify(response));
+      res.status(200).send(response);
+      }
+    }
+  });
+});
+
 
 module.exports = router;

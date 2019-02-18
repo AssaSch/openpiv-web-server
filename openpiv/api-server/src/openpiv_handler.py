@@ -6,9 +6,13 @@ from openpiv import tools, process, validation, filters, scaling, pyprocess
 import numpy as np
 import matplotlib.pyplot as plt
 
-def two_images():
+def two_images(image_1, image_2):
 
     local_dir = os.path.dirname(os.path.realpath(__file__))
+    newFile_1 = open('teting1.bmp', 'w+b')
+    newFileByteArray = bytes(image_1)
+    newFile_1.write(newFileByteArray)
+    newFile_1.close()
     frame_a  = tools.imread( local_dir + '/exp1_001_a.bmp' )
     frame_b  = tools.imread( local_dir + '/exp1_001_b.bmp' )
 
